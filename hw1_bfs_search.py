@@ -44,8 +44,9 @@ def pairwiseDistancesToDistanceDistrobution(**kwargs):
 		if distance in counts:
 			counts[distance] = counts[distance] + 1
 		else:
-			counts[distance] = 0
-			counts[distance] = distance
+			##make new key
+			counts[distance] = 1
+			
 
 	plt.bar(range(len(counts)), counts.values(), align="center")
 	plt.xticks(range(len(counts)), counts.keys())
