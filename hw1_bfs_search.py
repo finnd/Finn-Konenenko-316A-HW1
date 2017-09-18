@@ -18,7 +18,8 @@ def BFS(**kwargs):
 		print("NODE\tDISTANCE FROM " + source)
 		print("--------------------------")
 		for node in G.nodes():
-			print (str(node) + "\t" + str(G.node[node]["distance"]))
+			if node is not None:
+				print (str(node) + "\t" + str(G.node[node]["distance"]))
 	else:
 		distancesArray = []
 		for node in G.node:
@@ -79,8 +80,8 @@ if __name__ == "__main__":
 				("CARN", "CASE")]
 
 	G.add_edges_from(edgeList)
-	##print(BFS(graph=G, sourceNode="CASE", humanOutput=False))
-	pairwiseDistancesToDistanceDistrobution(graph=G)
+	print(BFS(graph=G, sourceNode="CASE", humanOutput=True))
+	##pairwiseDistancesToDistanceDistrobution(graph=G)
 	
 
 
