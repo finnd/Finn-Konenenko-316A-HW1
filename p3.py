@@ -127,16 +127,56 @@ def printTop20(c_dic):
 	for x in range(0, 20):
 		print("%d \t %s \t %d\n" % (x+1, (sorted_closeness.items()[x])[0], (sorted_closeness.items()[x])[1]))
 
+def node_distance(G, root_node):
+	q=[]
+	list_distances = []
+	q.append(root_node)
+
+	if G.node[root_node].has_key('distance'):
+		for n in G.nodes():
+			del G.node[n]['distance']
+
+	G.node[root_node]['distance'] = 0
+	while len(q):
+		working_node=q.pop(0)
+		for n in G.neighbors(working_node):
+			if len(G.node[n]) == 0:
+				G.node[n]['distance'] = G.node[working_node]['distance'] + 1
+				q.append(n)
+	for n in G.nodes():
+		list_distances.append(((root_node, n), G.node[n]["distance"]))
+	return list_distances
+
+def closeness(G):
+	norm=0.0
+	diz_c={}
+	l_values=[]
+	for n in G.nodes():
+		l=node_distance(G,n)
+		ave_length=0
+		for path in l:
+			print(path)
+			ave_length+=float(path[1])/(G.number_of_nodes()-1-0)
+		norm+=1/ave_length
+		diz_c[n]=1/ave_length
+		l_values.append(diz_c[n])
+	return diz_c
 
 if __name__ == '__main__':
 	idToActorMap = parseActors(file=str(sys.argv[1]))
 	edgeArray = parseEdges(file=str(sys.argv[2]))
+	G = generateGraph(actorMap = idToActorMap, edgeList = edgeArray)
 	LCC = returnLargestConnectedComponent(graph=G)
 
-	if str(sys.argv[3] == 'par'):
+	print(sys.argv[3])
+	if sys.argv[3] == 'par':
 		findDegreeCentralityAndPrint(graph=LCC, n=20)
 		bt = betweenness_centrality_parallel(LCC)
 		printTop20(bt)
+	if sys.argv[3] == 'clo':
+		c = closeness(LCC)
+		printTop20(c)
+
 	else:
 		findDegreeCentralityAndPrint(graph=LCC, n=20)
 		findBetweenessCentrailityAndPrint(graph=LCC)
