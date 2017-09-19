@@ -1,8 +1,7 @@
 import os
 import sys
-import snap
 import networkx as nx
-import matplotlib.pyplot as plt 
+
 
 def parseActors(**kwargs):
 	input_file_path = kwargs['file']
