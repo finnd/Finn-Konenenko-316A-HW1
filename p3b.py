@@ -86,7 +86,12 @@ def findBetweenessCentrailityAndPrint(**kwargs):
 					bc[n] = 0.0
 				bc[n]+=path_dis[n]
 
-	print(bc)
+	return bc
+
+def printTop20(c_dic):
+	sorted_closeness = OrderedDict(sorted(c_dic.items(), key=operator.itemgetter(1), reverse=True))
+	for x in range(0, 20):
+		print("%d \t %s \t %d\n" % (x+1, (sorted_closeness.items()[x])[0], (sorted_closeness.items()[x])[1]))
 
 
 if __name__ == "__main__":
@@ -94,4 +99,5 @@ if __name__ == "__main__":
 	edgeArray = parseEdges(file=str(sys.argv[2]))
 	G = generateGraph(actorMap = idToActorMap, edgeList = edgeArray)
 	sub = generateSubGraph(graph=G, actorMap = idToActorMap)
-	findBetweenessCentrailityAndPrint(graph=sub)
+	bc = indBetweenessCentrailityAndPrint(graph=sub)
+	printTop20(bc)
