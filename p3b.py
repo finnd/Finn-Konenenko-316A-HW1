@@ -98,5 +98,5 @@ if __name__ == "__main__":
 	edgeArray = parseEdges(file=str(sys.argv[2]))
 	G = generateGraph(actorMap = idToActorMap, edgeList = edgeArray)
 	sub = generateSubGraph(graph=G, actorMap = idToActorMap)
-	bc = indBetweenessCentrailityAndPrint(graph=sub)
+	bc = findBetweenessCentrailityAndPrint(graph=sub)
 	printTop20(bc)
